@@ -1,0 +1,23 @@
+{
+  "name": "report-express",
+  "version": "1.0.0",
+  "description": "Learn report in express, generate pdf and excel file",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "test": "nodemon src/server.js"
+  },
+  "keywords": [
+    "pdf",
+    "excel",
+    "report",
+    "express"
+  ],
+  "author": "fajr",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "pdf-creator-node": "^2.3.5"
+  }
+}
