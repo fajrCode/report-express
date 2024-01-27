@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Data Report PDF</h1>
-    <table>
+    <table border="1">
         <tr>
             <th>No</th>
             <th>Nama Barang</th>
@@ -15,13 +15,15 @@
             <th>Harga Satuan</th>
             <th>Expires</th>
         </tr>
+        {{#each barangs}}
         <tr>
-            <td>1</td>
-            <td>Barang 1</td>
-            <td>1</td>
-            <td>1000</td>
-            <td>23-02-2025</td>
+            <td>{{this.no}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.qty}}</td>
+            <td>{{this.harga}}</td>
+            <td>{{this.exp}}</td>
         </tr>
+        {{/each}}
     </table>
 </body>
 </html>
