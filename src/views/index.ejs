@@ -1,85 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate PDF file</title>
 </head>
 <body>
-    <h1>Report PDF</h1>
-    <form action="/pdf" method="post"><button type="submit">Generate PDF</button></form>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rich Text Editor Example</title>
-    <style>
-        .editable-text {
-            border: 1px solid #ccc;
-            padding: 5px;
-            min-height: 100px;
-            width: 300px;
-        }
-    </style>
-</head>
-<body>
-
-<div class="editable-text" contenteditable="true">
-    <p>Ini adalah teks yang dapat diedit oleh pengguna.</p>
+  <h1>Generate PDF File</h1>
+  <nav>
     <ul>
-        <li>Item daftar 1</li>
-        <li>Item daftar 2</li>
+      <li><a href="/basic">Basic Generate</a></li>
+      <li><a href="/custom">Custon Input</a></li>
     </ul>
-</div>
-
+  </nav>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body> -->
-    <!-- Create the editor container -->
-    <!-- <div id="editor">
-      <p>Hello World!</p>
-      <p>Some initial <strong>bold</strong> text</p>
-      <p><br /></p>
-    </div>
-    <br />
-    <button onclick="ambilDanTampilkan()">Ambil dan Tampilkan</button>
-    <div id="hasil"></div> -->
-
-    <!-- Include the Quill library -->
-    <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
-
-    <!-- Initialize Quill editor -->
-    <!-- <script>
-      let quill = new Quill("#editor", {
-        theme: "snow",
-      });
-      function ambilDanTampilkan() {
-        // Ambil elemen dengan class 'ql-editor' (elemen utama dari editor Quill)
-        let editor = document.querySelector(".ql-editor");
-        let hasil = document.getElementById("hasil");
-
-        // Ambil isi dari elemen editor Quill
-        let isiEditor = editor.innerHTML;
-
-        // Tampilkan isi di elemen dengan id 'hasil'
-        hasil.innerHTML = isiEditor;
-        }
-    </script>
-  </body>
-</html> -->
