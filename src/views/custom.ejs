@@ -4,10 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link
+    <!-- <link
       href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
       rel="stylesheet"
-    />
+    /> -->
+    <style>
+      table, td, th {
+        border: 1px solid;
+      }
+      table{
+        border-collapse: collapse;
+      }
+    </style>
   </head>
   <body>
     <h1>Generate PDF with Custom User Input</h1>
@@ -30,57 +38,112 @@
     <br />
     <button onclick="kirimKeBackend()">Test Kirim ke Backend</button>
     <button onclick="generatePdf()">Genarete PDF</button>
+
     <div id="hasil"></div>
+
     <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Initialize Quill editor -->
     <script>
-      let quills = [];
+      // let quills = [];
     
-      $(document).ready(function () {
-        // Inisialisasi editor Quill
-        $(".editor").each(function (index) {
-          quills[index] = new Quill(this, {
-            theme: "snow",
+      // $(document).ready(function () {
+      //   // Inisialisasi editor Quill
+      //   $(".editor").each(function (index) {
+      //     quills[index] = new Quill(this, {
+      //       theme: "snow",
+      //     });
+      //   });
+      // });
+    
+      // function kirimKeBackend() {
+      //   let dataToBackend = [];
+    
+      //   // Ambil isi dari setiap editor Quill
+      //   quills.forEach(function (quill) {
+      //     dataToBackend.push(quill.root.innerHTML);
+      //     console.log(quill.root.innerHTML)
+      //   });
+
+      //ckeditor
+      // Array untuk menyimpan instance CKEditor
+        let editors = [];
+
+        $(document).ready(function () {
+          // Inisialisasi editor CKEditor
+          $(".editor").each(function (index) {
+            ClassicEditor
+              .create(this, {
+          toolbar: {
+            items: [
+              'heading',
+              '|',
+              'bold',
+              'italic',
+              'link',
+              '|',
+              'bulletedList',
+              'numberedList',
+              '|',
+              'insertTable'
+            ]
+          },
+          table: {
+            contentToolbar: [
+              'tableColumn',
+              'tableRow',
+              'mergeTableCells'
+            ]
+          },
+          language: 'en'
+        })
+              .then(editor => {
+                editors[index] = editor;
+              })
+              .catch(error => {
+                console.error(error);
+              });
           });
         });
-      });
+
+        function kirimKeBackend() {
+            let dataToBackend = [];
+
+            // Ambil isi dari setiap editor CKEditor
+            editors.forEach(function (editor) {
+              dataToBackend.push(editor.getData());
+              console.log(editor.getData());
+            });
+      
+              // Kirim data ke backend (Anda perlu mengganti URL dengan endpoint backend Anda)
+            $.ajax({
+              url: "/quil",
+              method: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({ data: dataToBackend }),
+              success: function (response) {
+                // Proses respons dari backend (response dapat berupa apa saja yang dikirimkan oleh backend)
+                $("#hasil").html("Hasil dari Backend: " + response);
+                console.log(response)
+              },
+              error: function () {
+                alert("Terjadi kesalahan saat mengirim data ke backend.");
+              },
+            });
+
+
+          }
     
-      function kirimKeBackend() {
+        function generatePdf() {
         let dataToBackend = [];
-    
-        // Ambil isi dari setiap editor Quill
-        quills.forEach(function (quill) {
-          dataToBackend.push(quill.root.innerHTML);
-          console.log(quill.root.innerHTML)
-        });
-    
-        // Kirim data ke backend (Anda perlu mengganti URL dengan endpoint backend Anda)
-        $.ajax({
-          url: "/quil",
-          method: "POST",
-          contentType: "application/json",
-          data: JSON.stringify({ data: dataToBackend }),
-          success: function (response) {
-            // Proses respons dari backend (response dapat berupa apa saja yang dikirimkan oleh backend)
-            $("#hasil").html("Hasil dari Backend: " + response);
-            console.log(response)
-          },
-          error: function () {
-            alert("Terjadi kesalahan saat mengirim data ke backend.");
-          },
-        });
-      }
-    
-      function generatePdf() {
-        let dataToBackend = [];
-    
-        // Ambil isi dari setiap editor Quill
-        quills.forEach(function (quill) {
-          dataToBackend.push(quill.root.innerHTML);
-          console.log(quill.root.innerHTML)
+        // Ambil isi dari setiap editor CKEditor
+        editors.forEach(function (editor) {
+          dataToBackend.push(editor.getData());
+          console.log(editor.getData());
         });
     
         // Kirim data ke backend (Anda perlu mengganti URL dengan endpoint backend Anda)
@@ -90,9 +153,7 @@
           contentType: "application/json",
           data: JSON.stringify({ data: dataToBackend }),
           success:  $("#hasil").html("Hasil dari Backend: " + dataToBackend),
-        //   error: function () {
-        //     alert("Terjadi kesalahan saat mengirim data ke backend.");
-        //   },
+        
         });
       }
     
